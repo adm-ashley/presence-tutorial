@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presence Student Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>body{margin:0}img{max-width:100%}
+/* Layout: one step per band. Cues (do, say, expect, ask, check) on the left, code and reference on the right. Light only, matching the Inherited Garden guide. */
+:root{
+  color-scheme:light;
+  --paper:#f4f2ed; --card:#fbfaf7; --ink:#161513; --muted:#66625b; --line:#d9d4c9;
+  --accent:#b8336a; --code-bg:#fbfaf7; --kw:#9a3412; --str:#1f6f4a; --com:#8b867d; --num:#1d4ed8; --fn:#6d28d9;
+  --sans:"Instrument Sans", Aptos, "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:1080px;margin:0 auto;padding-block:40px 80px;display:grid;gap:28px}
+h1{font-size:clamp(28px,4vw,38px);line-height:1.05;margin:0;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0} section{display:grid;gap:14px;min-width:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+code{font-family:var(--mono);font-size:.86em;background:var(--card);border:1px solid var(--line);padding:0 4px}
+.code{border:1px solid var(--line);background:var(--code-bg);min-width:0}
+.code-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+.where{color:var(--ink);font-weight:600}
+.code pre{margin:0;padding:10px 12px;overflow-x:auto;font:14px/1.55 var(--mono)}
+.code pre code{background:none;border:0;padding:0;font-size:inherit;color:var(--ink)}
+.copy{font:600 12px var(--sans);padding:2px 10px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:0;flex:none}
+.copy.done{background:transparent;color:var(--ink)}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hljs-keyword,.hljs-literal,.hljs-built_in{color:var(--kw)} .hljs-string,.hljs-attr{color:var(--str)}
+.hljs-comment{color:var(--com);font-style:italic} .hljs-number{color:var(--num)} .hljs-title,.hljs-title.function_{color:var(--fn)}
+.top{display:grid;gap:8px}
+.parts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)} .parts b{color:var(--ink)}
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);display:flex;gap:6px;flex-wrap:wrap;padding-block:8px;border-bottom:1px solid var(--line)}
+nav.jump a{display:flex;gap:6px;align-items:baseline;padding:5px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+nav.jump a span{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:400}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.step{border-top:2px solid var(--ink);padding-top:12px;gap:12px;scroll-margin-top:60px}
+.head{display:flex;gap:14px;align-items:baseline}
+.head .t{font-family:var(--mono);font-size:14px;color:var(--accent);font-variant-numeric:tabular-nums}
+.head h2{font-size:26px;margin:0;line-height:1.2;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;text-wrap:balance}
+.head h2 small{font-size:16px;font-weight:500;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px;align-items:start}
+@media (max-width:760px){ .grid{grid-template-columns:1fr} }
+.cues{display:grid;gap:10px;font-size:15px;line-height:1.5}
+.cues img{width:260px;max-width:100%;height:auto;border:1px solid var(--line)}
+.type{display:grid;gap:8px;min-width:0}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-right:8px}
+.del{border:1px dashed var(--accent);padding:8px 12px;font-size:14px} .del ul{margin:4px 0 0;padding-left:22px}
+details{border:1px solid var(--line);background:var(--card)} details summary{cursor:pointer;padding:8px 12px;font-weight:600;font-size:14px} details .code{border-width:1px 0 0}
+.how{font-size:14px;color:var(--muted)}
+
+body{background:var(--paper)} .del{background:var(--card)} .cues p b{font-weight:600}
+
+.trouble{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px} .trouble h3{margin:0 0 6px;font-size:16px} .trouble ul{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px;line-height:1.5} @media (max-width:760px){.trouble{grid-template-columns:1fr}}</style>
+</head>
+<body>
+
+<main>
+<header class="top">
+  <h1>Presence Student Guide</h1>
+</header>
+<nav class="jump" aria-label="Steps"><a href="#s1"><span>1</span>What You’re Building</a><a href="#s2"><span>2</span>Create the Firebase Project</a><a href="#s3"><span>3</span>Rules and Page Config</a><a href="#s4"><span>4</span>Wire the Sensor</a><a href="#s5"><span>5</span>Flash the Board</a><a href="#s6"><span>6</span>Run the Page</a><a href="#s7"><span>7</span>Make It Yours</a><a href="#s8"><span>8</span>Host It on Firebase</a><a href="#close"><span>?</span>Troubleshooting</a></nav>
+<section class="step" id="s1">
+  <div class="head"><span class="t">1</span><h2>What You’re Building</h2></div>
+  <div class="type"><div class="code"><div class="code-bar"><span>how it fits together</span></div><pre><code class="nohighlight">ultrasonic sensor
+   │  distance in cm
+   ▼
+ESP32-C3  ──  Wi-Fi  ──►  Firebase Realtime Database
+                           /sensor
+                             distance: 42.5
+                             near:     true
+                             updatedAt: (server time)
+                                │
+                                ▼  live updates
+                          your p5.js page on Firebase Hosting
+                          (laptop, phone, projector…)</code></pre></div><div class="del"><span class="tag">You’ll need</span><ul><li>ESP32-C3, 3.3 V HC-SR04 sensor (HC-SR04P), jumper wires</li><li>Google account for Firebase</li><li>Node.js for hosting</li><li>2.4 GHz Wi-Fi network the board can join (phone hotspot works)</li></ul></div><div class="del"><span class="tag">Files you’ll edit</span><ul><li><code>presence_sensor/presence_sensor.ino</code> · Wi-Fi, database address, pins</li><li><code>docs/config.js</code> · your Firebase project, once</li><li><code>docs/sketch.js</code> · the interaction, as much as you like</li><li>Leave <code>firebase_plumbing.h</code> and <code>docs/lib/</code> alone: they do the connecting for you</li></ul></div></div>
+</section><section class="step" id="s2">
+  <div class="head"><span class="t">2</span><h2>Create the Firebase Project</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Go to <code>console.firebase.google.com</code> and click <b>Create a new Firebase project</b>. Name it, for example <code>dm3014-yourname</code>.</p><p><span class="tag">Do</span>Turn off Gemini and Google Analytics. Click <b>Create project</b> and wait.</p><p><span class="tag">Do</span>In the left menu, open <b>Databases &amp; Storage → Realtime Database</b> and click <b>Create Database</b>.</p><p><span class="tag">Do</span>Location: <b>Singapore (asia-southeast1)</b>. Security rules: <b>Start in locked mode</b>. Click through to finish.</p><p><span class="tag">Expect</span>An empty database with a <b>Data</b> tab and a <b>Rules</b> tab. Its address is at the top of the Data tab.</p><p><span class="tag">Check</span>You’ve copied your database URL somewhere you can find it. You’ll paste it into the board sketch in Step 5.</p></div><div class="type"><div class="code"><div class="code-bar"><span>your database URL looks like this</span></div><pre><code class="nohighlight">https://dm3014-yourname-default-rtdb.asia-southeast1.firebasedatabase.app</code></pre></div></div></div>
+</section><section class="step" id="s3">
+  <div class="head"><span class="t">3</span><h2>Rules and Page Config</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Open the <b>Rules</b> tab. Delete everything in the editor, paste the rules from the right, and click <b>Publish</b>.</p><p><span class="tag">Do</span>Click the gear icon → <b>Settings → General</b>. Under <b>Your apps</b>, click the web icon <b>&lt;/&gt;</b>. Give it a nickname, tick <b>Also set up Firebase Hosting</b>, and click <b>Register app</b>. Click <b>Next</b> and skip the install and deploy instructions it shows, we will do this in Step 8.</p><p><span class="tag">Do</span>Copy the <code>firebaseConfig</code> object Firebase shows you. In the kit, open <code>docs/config.js</code> and paste it over the placeholder.</p></div><div class="type"><span class="tag">Type</span><div class="code"><div class="code-bar"><span><span class="where">Rules tab · replace everything, then Publish</span></span><button class="copy" data-i="0" type="button">Copy</button></div><pre><code class="language-json">{
+  &quot;rules&quot;: {
+    &quot;sensor&quot;: {
+      &quot;.read&quot;: true,
+      &quot;.write&quot;: true,
+      &quot;.validate&quot;: &quot;newData.hasChildren([&#x27;distance&#x27;, &#x27;near&#x27;])&quot;,
+      &quot;distance&quot;: { &quot;.validate&quot;: &quot;newData.isNumber()&quot; },
+      &quot;near&quot;: { &quot;.validate&quot;: &quot;newData.isBoolean()&quot; },
+      &quot;updatedAt&quot;: { &quot;.validate&quot;: &quot;newData.isNumber()&quot; },
+      &quot;$other&quot;: { &quot;.validate&quot;: false }
+    }
+  }
+}</code></pre></div></div></div>
+</section><section class="step" id="s4">
+  <div class="head"><span class="t">4</span><h2>Wire the Sensor</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Keep the USB cable unplugged while you wire. Four wires, straight from the sensor to the board, as on the right.</p></div><div class="type"><div class="code"><div class="code-bar"><span>wiring · HC-SR04 to ESP32-C3</span></div><pre><code class="nohighlight">HC-SR04         ESP32-C3
+VCC  ────────── 3V3     (not 5V)
+GND  ────────── GND
+TRIG ────────── GPIO 3
+ECHO ────────── GPIO 4</code></pre></div></div></div>
+</section><section class="step" id="s5">
+  <div class="head"><span class="t">5</span><h2>Flash the Board</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Open <code>presence_sensor/presence_sensor.ino</code>. Fill in the Wi-Fi name and password, and paste your database URL from Step 2.</p><p><span class="tag">Do</span>Tools → Board: <b>ESP32C3 Dev Module</b>, <b>USB CDC On Boot: Enabled</b>. Upload, then open the Serial Monitor at 115200.</p><p><span class="tag">Expect</span>Wi-Fi connects, then a line appears each time someone comes near or leaves. Wave a hand in front of the sensor.</p><p><span class="tag">Do</span>In the Firebase console, open the <b>Data</b> tab. The numbers under <b>sensor</b> flicker as they update.</p><p><span class="tag">Expect</span><code>replied 401</code> means the rules aren’t published. <code>replied 404</code> means the database URL is wrong. Dots that never finish mean a wrong Wi-Fi name or password, or a 5 GHz network.</p></div><div class="type"><span class="tag">Type</span><div class="code"><div class="code-bar"><span><span class="where">presence_sensor.ino · sections 1 and 2</span></span><button class="copy" data-i="1" type="button">Copy</button></div><pre><code class="language-cpp">const char* WIFI_NAME     = &quot;your-wifi-name&quot;;
+const char* WIFI_PASSWORD = &quot;your-wifi-password&quot;;
+
+const char* DATABASE_URL = &quot;https://dm3014-yourname-default-rtdb.asia-southeast1.firebasedatabase.app&quot;;</code></pre></div><div class="code"><div class="code-bar"><span>Serial Monitor · 115200</span></div><pre><code class="nohighlight">[presence] starting
+[presence] joining Wi-Fi &#x27;studio-hotspot&#x27;.....
+[presence] Wi-Fi connected, board address 172.20.10.4
+[presence] sending to https://dm3014-yourname-default-rtdb…/sensor.json
+[presence] someone is near (38 cm)
+[presence] nobody near (204 cm)</code></pre></div></div></div>
+</section><section class="step" id="s6">
+  <div class="head"><span class="t">6</span><h2>Run the Page</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Open the <code>docs</code> folder in your editor and start Live Server.</p><p><span class="tag">Expect</span>The label in the top right reads <b>live · 120 cm</b> or similar. Walk up to the sensor: the page darkens, a light grows, a line of text fades in.</p><img src="data:image/jpeg;base64,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AUUUUAFFFFABRRRQAUUUUAFFFFABRRVixi824UEfKvJobsBo2EPlQgkfM3JqxRRWDdzQK0bCDavmMPmPT2FVbSLzZQD90cmtWs5voVFdQoop0aGRwq9TWZY+CJpXwOnc+laUaLGu1RgURRiNAq//AK6fWbdykrBRRUkMLSH0X1pFEYBJwBk1Ols7csQoq1HGsY+Uc+tPqHIpRIFtox1yfrUgjQdEX8qfRSuOw3av90flSGND1Rfyp9FAyBraM9Mj6VC9s68qQwq7RRdisjLIIOCMGitGSNZB8w59apTQtGfVfWrTuS1YjpkiLIu1hkU+imSZU8TRPg9Ox9airXljEiFW/wD1VlSIY3Kt1FaJ3JaG1Uv4Ny+Yo+YdfcVboqk7EtXMOip7uLypSB908ioK23IK99D5sJwPmXkVjV0NY19F5VwwH3W5FawfQiS6leiiirJCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigArV0yPbAXPVz+lZagswA6k4rfRQiKo6AYqJvSxURaKKkt08yZV7Z5rIo0bKPy4QT95uTU9FFYt3NQrRsotke4j5m/QVUtY/MmAPQcmtSok+hSQUUU+JDI4UdO9QMfbw+Yct90frV0AAYHAoUBQAOgpazbuaJWCiipooC/LcCkMhpyxO3RTV5I1T7o59adU8w7FHyJP7v601o3XqprQoo5gsZtFaDxo/3h+NVZYCnK8imncLENIQCMEZFLRTEUbiHyzlfun9KhrTYBgQehrPlQxuVP4VadyGrDKrXsW+PcB8y/qKs0VSdiTFoqa6j8uYgdDyKhrUggvY/MhJH3l5FZVblY9wnlzMvYHitIPoRJEdU9Tj3QBx1Q/pVykdQ6Mp6EYrROzJepz9FKwKsQeoOKStzMKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKALFgm+6T25rZrN0lcySN6DFaVZT3LjsFXdNT5nf04qlWpYLttwfUk1lLYuO5YooorMs0LBNsRY9WNWqbGuxFX0GKdWTdywq9apsjyerc1TiXfIq+prSqJMqKCiinwJvkA7dTUFkttDn526dhVqiis27lBRRUqQsevFICKirH2cf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vIH/AI9p9G4qdWVhlSCPY1NrDFooopAFFFFABRRSMyqMsQB7mgBaKryXkCfx7j6LzVWXUSeIkx7tVKLYro0iQBknAqpPfRx5CfO3t0rNlmklPzuT7dqjq1DuJyJZ7iSY/O3HoOlRUUVZIUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABQCR0JH0oooAkWeVekj/nUgvJx/y0/MCq9FFkFyz9tn/vj8hSG8nP/LT8gKr0UrILskaeVusj/nUZJPUk/WiimAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAV0UWgQvApZ7pJ3tvPSN0259CSAQARk8+3PNc7T/NkxjzHxjb949PT6UAamm6P9qsLy4maSJoU3qu3qNjMCfY7cD61HpekSahbmVJAo85YQNjNycckjoOR161nb2wRubBGDz1HpSBmAIDEA9QD1oAuavYNpl6bZ5FkIUMGUYBBqlQSSeST9aKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/9k=" alt="The page with someone near: dark background, a warm light and a line of text" width="260" height="161"><p><span class="tag">Check</span>The page reacts to your own sensor, not just the mouse.</p></div><div class="type"><div class="del"><span class="tag">The status label tells you where the chain breaks</span><ul><li><b>live</b> · readings arriving</li><li><b>board offline</b> · readings stopped: check the board’s power and Wi-Fi</li><li><b>waiting for the board</b> · nothing has ever arrived at /sensor</li><li><b>permission denied</b> · the rules from Step 3 aren’t published</li><li><b>practice mode</b> · config.js still has the placeholder: the mouse is the sensor (bottom of the page = close)</li></ul></div></div></div>
+</section><section class="step" id="s7">
+  <div class="head"><span class="t">7</span><h2>Make It Yours</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Open <code>docs/sketch.js</code>. The settings are at the top; <code>draw()</code> is in numbered parts, each with a comment.</p><p><span class="tag">Do</span>Change at least two things: the words, the colours, what happens as someone comes closer, what happens when they leave. Snippets on the right to start from.</p><p><span class="tag">Expect</span>No board to hand? Blank out the databaseURL line in config.js and the page goes into practice mode: the mouse stands in for the sensor. Put the line back when you’re done.</p></div><div class="type"><span class="tag">Type</span><div class="code"><div class="code-bar"><span><span class="where">sketch.js · Settings, your own words</span></span><button class="copy" data-i="2" type="button">Copy</button></div><pre><code class="language-javascript">const LINES = [
+  &quot;Write your own lines here.&quot;,
+  &quot;One appears each time someone arrives.&quot;,
+];</code></pre></div><div class="code"><div class="code-bar"><span><span class="where">sketch.js · count visitors</span></span><button class="copy" data-i="3" type="button">Copy</button></div><pre><code class="language-javascript">let visits = 0;
+
+// inside setup(), after sensor.connect(...)
+sensor.on(&quot;near&quot;, () =&gt; {
+  visits++;
+  line = &quot;You are visitor &quot; + visits + &quot; today.&quot;;
+});</code></pre></div><div class="code"><div class="code-bar"><span><span class="where">sketch.js · zones: add to the end of draw()</span></span><button class="copy" data-i="4" type="button">Copy</button></div><pre><code class="language-javascript">// Three zones instead of near / far
+if (sensor.distance &gt; 0 &amp;&amp; sensor.distance &lt; 30) {
+  // very close: your idea here
+} else if (sensor.distance &lt; 100) {
+  // in the room
+} else {
+  // nobody, or too far to see
+}</code></pre></div><details><summary>Whole sketch.js from the kit</summary><div class="code"><div class="code-bar"><span><span class="where">docs/sketch.js · paste to start again</span></span><button class="copy" data-i="5" type="button">Copy</button></div><pre><code class="language-javascript">/*
+  DM3014 · Presence · page sketch
+  ------------------------------------------------------------------
+  This is the file you edit. When someone walks up to the sensor,
+  the page darkens, a light grows, and a line of text appears.
+  When they leave, it fades back.
+
+  Everything about Firebase is in lib/sensor.js. From here you only need:
+
+    sensor.distance          latest distance in cm (-1 = nothing in range)
+    sensor.near              true while someone is close
+    sensor.online            true while the board is sending
+    sensor.on(&quot;near&quot;, fn)    runs once when someone arrives
+    sensor.on(&quot;far&quot;, fn)     runs once when they leave
+*/
+
+// ── Settings ─────────────────────────────────────────────────────
+const FAR_CM = 200;          // treat anything further than this as &quot;nobody&quot;
+const DAY = &quot;#efe9dc&quot;;       // background when nobody is near
+const NIGHT = &quot;#12151c&quot;;     // background when someone is right there
+const LAMP = [255, 208, 140];
+
+// One of these appears each time someone arrives.
+const LINES = [
+  &quot;Oh. You&#x27;re here.&quot;,
+  &quot;Stay a little longer.&quot;,
+  &quot;Closer, and I&#x27;ll keep talking.&quot;,
+  &quot;Most people walk straight past.&quot;,
+];
+
+let smooth = FAR_CM;   // eased distance, so the page moves gently
+let shown = 0;         // how visible the text is, 0 to 1
+let line = &quot;&quot;;
+
+
+// ── Setup ────────────────────────────────────────────────────────
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  textAlign(CENTER, CENTER);
+
+  sensor.connect(firebaseConfig, DATA_PATH);
+
+  sensor.on(&quot;near&quot;, () =&gt; {
+    line = random(LINES);
+  });
+
+  sensor.on(&quot;far&quot;, () =&gt; {
+    console.log(&quot;they left&quot;);
+  });
+}
+
+
+// ── Draw ─────────────────────────────────────────────────────────
+
+function draw() {
+  // 1. Ease towards the latest reading. Readings arrive twice a
+  //    second; easing fills in the gaps.
+  const target = sensor.distance &gt; 0 ? min(sensor.distance, FAR_CM) : FAR_CM;
+  smooth = lerp(smooth, target, 0.08);
+
+  // 2. Closeness: 0 when far away, 1 when right at the sensor.
+  const closeness = constrain(map(smooth, FAR_CM, 10, 0, 1), 0, 1);
+
+  // 3. The room darkens as they come closer.
+  background(lerpColor(color(DAY), color(NIGHT), closeness));
+
+  // 4. A light that grows with closeness.
+  noStroke();
+  for (let i = 6; i &gt; 0; i--) {
+    fill(LAMP[0], LAMP[1], LAMP[2], 40 * closeness);
+    circle(width / 2, height / 2, i * 90 * closeness);
+  }
+
+  // 5. The line fades in while they&#x27;re near.
+  shown = lerp(shown, sensor.near ? 1 : 0, 0.06);
+  fill(255, 255 * shown);
+  textFont(&quot;Karla&quot;);
+  textSize(min(width, height) * 0.05);
+  text(line, width / 2, height / 2 + min(width, height) * 0.28);
+
+  // 6. The raw reading, small, bottom left.
+  fill(closeness &gt; 0.5 ? 200 : 60);
+  textFont(&quot;JetBrains Mono&quot;);
+  textSize(12);
+  textAlign(LEFT, BOTTOM);
+  text(sensor.distance &lt; 0 ? &quot;— cm&quot; : nf(sensor.distance, 1, 1) + &quot; cm&quot;, 16, height - 16);
+  textAlign(CENTER, CENTER);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</code></pre></div></details></div></div>
+</section><section class="step" id="s8">
+  <div class="head"><span class="t">8</span><h2>Host It on Firebase</h2></div>
+  <div class="grid"><div class="cues"><p><span class="tag">Do</span>Open a terminal in the kit folder: the one with <code>firebase.json</code> in it. Type <code>node -v</code>: it should print v20 or higher. If it’s older, or not found, install the LTS version from nodejs.org first.</p><p><span class="tag">Do</span>Run the login command. A browser opens: sign in with the same Google account you used for Firebase.</p><p><span class="tag">Do</span>Run the deploy command, with your own project ID in place of <code>dm3014-yourname</code>. It’s the <code>projectId</code> in your config.js.</p><p><span class="tag">Expect</span><b>Deploy complete!</b> and a Hosting URL ending in <code>.web.app</code>. That’s your page’s public address.</p><p><span class="tag">Check</span>Your address opens on a phone using mobile data, not the studio Wi-Fi.</p></div><div class="type"><span class="tag">Type</span><div class="code"><div class="code-bar"><span><span class="where">terminal · from the kit folder, the one with firebase.json</span></span><button class="copy" data-i="6" type="button">Copy</button></div><pre><code class="language-bash">node -v
+npx firebase-tools login
+npx firebase-tools deploy --only hosting --project dm3014-yourname</code></pre></div><div class="code"><div class="code-bar"><span>terminal · what a good deploy ends with</span></div><pre><code class="nohighlight">=== Deploying to &#x27;dm3014-yourname&#x27;...
+✔  hosting[dm3014-yourname]: release complete
+✔  Deploy complete!
+Hosting URL: https://dm3014-yourname.web.app</code></pre></div><div class="del"><span class="tag">What firebase.json does</span><ul><li>Tells Firebase to publish the <code>docs</code> folder as your website</li><li>Run the deploy command again after every change you want online</li></ul></div></div></div>
+</section>
+<section class="step" id="close">
+  <div class="head"><span class="t">?</span><h2>Troubleshooting</h2></div>
+  <div class="trouble">
+    <div><h3>Board</h3><ul>
+      <li><b>Blank Serial Monitor</b> → USB CDC On Boot is off. Turn it on, upload again, press reset.</li>
+      <li><b>Dots that never finish</b> → wrong Wi-Fi name or password, a 5 GHz network, or a network with a login page.</li>
+      <li><b>Distance always −1</b> → TRIG and ECHO swapped, or an older 5 V-only HC-SR04 that won’t run on 3V3. Swap it for a 3.3 V one; don’t move VCC to 5V.</li>
+    </ul></div>
+    <div><h3>Firebase</h3><ul>
+      <li><b><code>replied 401</code></b> → the rules from Step 3 aren’t published.</li>
+      <li><b><code>replied 404</code></b> → the database URL in the board sketch is wrong.</li>
+      <li><b>“Hosting site not found” when deploying</b> → tick Hosting on the web app (Step 3), or open Hosting in the console and click Get started.</li>
+    </ul></div>
+    <div><h3>Page</h3><ul>
+      <li><b>Stuck on practice mode</b> → config.js still has the placeholder.</li>
+      <li><b>“waiting for the board”</b> → the board and the page point at different projects or paths.</li>
+      <li><b>“permission denied”</b> → the rules from Step 3 aren’t published.</li>
+      <li><b>Works on Live Server but not online</b> → save config.js and deploy again from the kit folder.</li>
+    </ul></div>
+  </div>
+</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+const BLOCKS = ["{\n  \"rules\": {\n    \"sensor\": {\n      \".read\": true,\n      \".write\": true,\n      \".validate\": \"newData.hasChildren(['distance', 'near'])\",\n      \"distance\": { \".validate\": \"newData.isNumber()\" },\n      \"near\": { \".validate\": \"newData.isBoolean()\" },\n      \"updatedAt\": { \".validate\": \"newData.isNumber()\" },\n      \"$other\": { \".validate\": false }\n    }\n  }\n}", "const char* WIFI_NAME     = \"your-wifi-name\";\nconst char* WIFI_PASSWORD = \"your-wifi-password\";\n\nconst char* DATABASE_URL = \"https://dm3014-yourname-default-rtdb.asia-southeast1.firebasedatabase.app\";", "const LINES = [\n  \"Write your own lines here.\",\n  \"One appears each time someone arrives.\",\n];", "let visits = 0;\n\n// inside setup(), after sensor.connect(...)\nsensor.on(\"near\", () => {\n  visits++;\n  line = \"You are visitor \" + visits + \" today.\";\n});", "// Three zones instead of near / far\nif (sensor.distance > 0 && sensor.distance < 30) {\n  // very close: your idea here\n} else if (sensor.distance < 100) {\n  // in the room\n} else {\n  // nobody, or too far to see\n}", "/*\n  DM3014 \u00b7 Presence \u00b7 page sketch\n  ------------------------------------------------------------------\n  This is the file you edit. When someone walks up to the sensor,\n  the page darkens, a light grows, and a line of text appears.\n  When they leave, it fades back.\n\n  Everything about Firebase is in lib/sensor.js. From here you only need:\n\n    sensor.distance          latest distance in cm (-1 = nothing in range)\n    sensor.near              true while someone is close\n    sensor.online            true while the board is sending\n    sensor.on(\"near\", fn)    runs once when someone arrives\n    sensor.on(\"far\", fn)     runs once when they leave\n*/\n\n// \u2500\u2500 Settings \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nconst FAR_CM = 200;          // treat anything further than this as \"nobody\"\nconst DAY = \"#efe9dc\";       // background when nobody is near\nconst NIGHT = \"#12151c\";     // background when someone is right there\nconst LAMP = [255, 208, 140];\n\n// One of these appears each time someone arrives.\nconst LINES = [\n  \"Oh. You're here.\",\n  \"Stay a little longer.\",\n  \"Closer, and I'll keep talking.\",\n  \"Most people walk straight past.\",\n];\n\nlet smooth = FAR_CM;   // eased distance, so the page moves gently\nlet shown = 0;         // how visible the text is, 0 to 1\nlet line = \"\";\n\n\n// \u2500\u2500 Setup \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  textAlign(CENTER, CENTER);\n\n  sensor.connect(firebaseConfig, DATA_PATH);\n\n  sensor.on(\"near\", () => {\n    line = random(LINES);\n  });\n\n  sensor.on(\"far\", () => {\n    console.log(\"they left\");\n  });\n}\n\n\n// \u2500\u2500 Draw \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction draw() {\n  // 1. Ease towards the latest reading. Readings arrive twice a\n  //    second; easing fills in the gaps.\n  const target = sensor.distance > 0 ? min(sensor.distance, FAR_CM) : FAR_CM;\n  smooth = lerp(smooth, target, 0.08);\n\n  // 2. Closeness: 0 when far away, 1 when right at the sensor.\n  const closeness = constrain(map(smooth, FAR_CM, 10, 0, 1), 0, 1);\n\n  // 3. The room darkens as they come closer.\n  background(lerpColor(color(DAY), color(NIGHT), closeness));\n\n  // 4. A light that grows with closeness.\n  noStroke();\n  for (let i = 6; i > 0; i--) {\n    fill(LAMP[0], LAMP[1], LAMP[2], 40 * closeness);\n    circle(width / 2, height / 2, i * 90 * closeness);\n  }\n\n  // 5. The line fades in while they're near.\n  shown = lerp(shown, sensor.near ? 1 : 0, 0.06);\n  fill(255, 255 * shown);\n  textFont(\"Karla\");\n  textSize(min(width, height) * 0.05);\n  text(line, width / 2, height / 2 + min(width, height) * 0.28);\n\n  // 6. The raw reading, small, bottom left.\n  fill(closeness > 0.5 ? 200 : 60);\n  textFont(\"JetBrains Mono\");\n  textSize(12);\n  textAlign(LEFT, BOTTOM);\n  text(sensor.distance < 0 ? \"\u2014 cm\" : nf(sensor.distance, 1, 1) + \" cm\", 16, height - 16);\n  textAlign(CENTER, CENTER);\n}\n\nfunction windowResized() {\n  resizeCanvas(windowWidth, windowHeight);\n}\n", "node -v\nnpx firebase-tools login\nnpx firebase-tools deploy --only hosting --project dm3014-yourname"];
+try { window.hljs && hljs.highlightAll(); } catch (e) {}
+document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', () => {
+  const text = BLOCKS[+b.dataset.i];
+  const done = () => { b.textContent = 'Copied'; b.classList.add('done'); setTimeout(() => { b.textContent = 'Copy'; b.classList.remove('done'); }, 1600); };
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(b.closest('.code').querySelector('code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected: press Ctrl/Cmd+C'; };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+}));
+</script>
+
+</body>
+</html>
